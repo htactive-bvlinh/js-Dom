@@ -22,8 +22,28 @@ fetch('http://5e5e2557725f320014ed10b3.mockapi.io/lists')
                 let todoList = createDiv('todoList');
                 let title = createDiv('title');
                 let listTodo = createDiv('listTodo');
-                let input = createDiv('input');
-            
+                let inputDiv = createDiv('form-group input');
+                let theInput= document.createElement('form');
+                
+                function addInput(urlId){
+                    let inn = document.createElement('input'); 
+                    inn.className='form-control';
+                    inn.placeholder='add';
+                    
+                    theInput.appendChild(inn);
+
+                    let btn = document.createElement('button');
+                    btn.className="btn btn-primary";
+                    btn.innerText=('Thêm Mới')
+                    btn.onclick=(postData(`http://5e5e2557725f320014ed10b3.mockapi.io/lists/${urlId}/tasks`))
+                   theInput.appendChild(btn);
+
+                    
+
+                }
+
+                //'<input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="add">'
+               // input.appendChild(theInput);
                 //todo list
                
                 divTong.appendChild(todoList);
@@ -31,7 +51,7 @@ fetch('http://5e5e2557725f320014ed10b3.mockapi.io/lists')
             
                 title.innerHTML=`<h2>${listElement.name}</h2>`;
                 todoList.appendChild(title);
-            
+               
             
                 todoList.appendChild(listTodo);
                 let ulList = document.createElement('ul');
@@ -49,10 +69,13 @@ fetch('http://5e5e2557725f320014ed10b3.mockapi.io/lists')
                
                 
             
-                todoList.appendChild(input);
+                todoList.appendChild(inputDiv);
+                inputDiv.appendChild(theInput);
             
                 let todo = document.getElementById('todo');
                 todo.appendChild(divTong);
+
+                addInput(listElement.id); 
               }
               addDivListItem();
             });  
